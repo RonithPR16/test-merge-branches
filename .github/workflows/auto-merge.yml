@@ -15,8 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        client-branch:
-          [development-client1, development-client2, development-client3]
+        client-branch: [develop-test1, develop-test2, develop-test3]
 
     steps:
       - name: Checkout repository
