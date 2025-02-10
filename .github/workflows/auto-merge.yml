@@ -3,25 +3,31 @@ name: Auto Merge Development to Clients
 on:
   push:
     branches:
-      - development # Triggers when development branch is updated
+      - development
+  workflow_dispatch: # Allows manual triggering
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   merge-to-clients:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        client-branch: [develop-test1, develop-test2, develop-test3]
+        client-branch:
+          [development-client1, development-client2, development-client3]
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Ensures all branches are fetched
+          fetch-depth: 0 # Ensure all branches are fetched
 
       - name: Configure Git
         run: |
-          git config --global user.name "Ronith PR"
-          git config --global user.email "ronithgsk@gmail.com"
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
 
       - name: Merge development into ${{ matrix.client-branch }}
         run: |
